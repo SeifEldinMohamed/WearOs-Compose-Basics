@@ -3,9 +3,7 @@ package com.example.wearoscomposelearning.presentation.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.*
 import com.example.wearoscomposelearning.presentation.theme.WearOSComposeLearningTheme
 
@@ -35,16 +33,32 @@ fun ScalingLazyColumnScreen() {
             verticalArrangement = Arrangement.Center
         ) {
             val listState = rememberScalingLazyListState()
-
-            ScalingLazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                autoCentering = AutoCenteringParams(itemIndex = 0),
-                state = listState
+            Scaffold(
+                timeText = {
+                    TimeText(modifier = Modifier.scrollAway(listState))
+                },
+                vignette = {
+                    // Only show a Vignette for scrollable screens. This app only has one screen,
+                    // which is scrollable, so we show it all the time.
+                    Vignette(vignettePosition = VignettePosition.TopAndBottom)
+                },
+                positionIndicator = {
+                    PositionIndicator(
+                        scalingLazyListState = listState
+                    )
+                }
             ) {
-                item { ButtonsScreen() }
-                item { WelcomeScreen("Hello Android") }
-                item { ChipScreen()}
-                item { ToggleScreen() }
+
+                ScalingLazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    autoCentering = AutoCenteringParams(itemIndex = 0),
+                    state = listState
+                ) {
+                    item { ButtonsScreen() }
+                    item { WelcomeScreen("Hello Android") }
+                    item { ChipScreen() }
+                    item { ToggleScreen() }
+                }
             }
         }
     }
@@ -58,4 +72,34 @@ fun ScalingLazyColumnScreen() {
  * the page indicator.
 
  * It also handles both round and non-round devices.
+ *
+ * TimeText uses curved text under the hood and gives developers an easy way
+ * to show the time without placing the composable or having to do
+ * any work with time related classes.
+ * The Material Guidelines require that you display the time
+ * at the top of any screen within the app.
+
+ * A Vignette blurs the top and bottom edges of the wearable screen when
+ * a screen capable of scrolling is displayed.
+ * Developers can specify to blur the top, bottom, or both depending
+ * on the use case.
+
+ * The PositionIndicator (also known as the Scrolling Indicator) is an indicator
+ * on the right side of the screen to show the current indicator
+ * location based on the type of state object you pass in.
+ * In our case, that will be the ScalingLazyListState.
+ *
+ * You might wonder why the position indicator needs to be up
+ * at the Scaffold level and not the ScalingLazyColumn level.
+
+ * Well, due to the curvature of the screen,
+ * the position indicator needs to be centered on the watch
+ * (Scaffold), not just centered on the viewport (ScalingLazyColumn).
+ * Otherwise, it could be cut off.
+ *
+ * It also has a nice feature where
+ * it hides itself when the user isn't scrolling.
+ * We're using the ScalingLazyListState but PositionIndicator takes
+ * many other scrolling options, e.g., ScrollState, LazyListState,
+ * and even can handle the rotating side button or the rotating bezel.
  **/
