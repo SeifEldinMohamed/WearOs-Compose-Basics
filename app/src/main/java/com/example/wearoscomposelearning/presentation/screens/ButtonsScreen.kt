@@ -23,13 +23,13 @@ fun ButtonsScreen() {
             .size(24.dp)
             .wrapContentSize(align = Alignment.Center)
 
-        ButtonExample(contentModifier, iconModifier)
+        MyButton(contentModifier, iconModifier)
     }
 
 }
 
 @Composable
-fun ButtonExample(
+fun MyButton(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier
 ) {
