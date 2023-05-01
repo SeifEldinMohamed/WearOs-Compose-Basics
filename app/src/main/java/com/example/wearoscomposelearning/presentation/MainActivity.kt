@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.wearoscomposelearning.presentation.screens.ButtonsScreen
+import com.example.wearoscomposelearning.presentation.screens.ChipScreen
+import com.example.wearoscomposelearning.presentation.screens.ToggleScreen
 import com.example.wearoscomposelearning.presentation.screens.WelcomeScreen
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +16,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             // WelcomeScreen("Android")
-            ButtonsScreen()
+            // ButtonsScreen()
+            // ChipScreen()
+            ToggleScreen()
         }
     }
 }
@@ -24,6 +28,8 @@ class MainActivity : ComponentActivity() {
 @Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-    WelcomeScreen("Preview Android")
+    // WelcomeScreen("Preview Android")
     // ButtonsScreen()
+    // ChipScreen()
+    ToggleScreen()
 }
