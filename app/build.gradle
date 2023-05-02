@@ -66,4 +66,7 @@ dependencies {
     implementation "androidx.wear.compose:compose-foundation:$wear_compose_version"
     // wear Compose Navigation,
     implementation "androidx.wear.compose:compose-navigation:$wear_compose_version"
+    // icons
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+
 }
